@@ -1,0 +1,7 @@
+---
+
+    - include: install_go.yml
+
+    - include: deploy_app.yml
+
+    - include: run_app.yml

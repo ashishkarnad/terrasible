@@ -1,0 +1,9 @@
+- hosts: web
+  roles:
+    - base
+    - web
+
+- hosts: app
+  roles:
+    - base
+    - app

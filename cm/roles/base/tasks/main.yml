@@ -1,0 +1,5 @@
+---
+
+    - name: Upgrading all the packages in the system
+      become: true
+      apt: upgrade=full update_cache=yes cache_valid_time=3600

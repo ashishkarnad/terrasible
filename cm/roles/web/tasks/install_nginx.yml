@@ -1,0 +1,23 @@
+---
+
+    - name: Installing NGINX
+      become: true
+      apt: name=nginx state=latest
+
+    - name: Deploying configuration file for NGINX
+      become: true
+      copy: src={{ source_config_file }} dest={{ dest_config_fie }} owner=root group=root mode=0644
+
+    - name: Check for NGINX Listening port
+      shell: if [ $(netstat -an |grep LISTEN | grep ":8484 " | wc -l) -eq 1 ]; then echo "OK"; else echo "FAILED"; fi
+      ignore_errors: true
+      register: listenPort
+
+    - name: Restarting NGINX Service
+      become: true
+      service: name=nginx state=restarted
+      when: listenPort.stdout.find("FAILED") != -1
+
+    - name: Starting NGINX Service
+      become: true
+      service: name=nginx state=started

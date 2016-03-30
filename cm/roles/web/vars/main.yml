@@ -1,0 +1,4 @@
+---
+
+source_config_file: "files/nginx.conf"
+dest_config_fie: "/etc/nginx/nginx.conf"

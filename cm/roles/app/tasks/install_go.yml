@@ -1,0 +1,3 @@
+- name: Installing GO Language Support
+  apt: name=golang state=present
+  become: true

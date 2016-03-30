@@ -1,0 +1,6 @@
+---
+
+    - name: Starting our application
+      become: yes
+      become_user: "{{ app_user }}"
+      shell: nohup go run "{{ app_path }}"/app.go > "{{ app_path }}/app.log" 2>&1 &

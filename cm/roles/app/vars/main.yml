@@ -1,0 +1,9 @@
+---
+
+app_path: "/opt/app"
+
+source_code: "files/app.go"
+bin_name: "app.go"
+
+app_user: "ubuntu"
+app_group: "ubuntu"
