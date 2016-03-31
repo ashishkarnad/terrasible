@@ -1,6 +1,16 @@
 ---
 
-    - name: Starting our application
+#
+# This was a different way to start an executable, but we registered this app as a systemd service.
+#
+#    - name: Starting our application
+#      become: yes
+#      become_user: "{{ app_user }}"
+#      shell: nohup go run "{{ app_path }}"/app.go > "{{ app_path }}/app.log" 2>&1 &
+#      when: cloned_repo.changed
+#
+
+    - name: (Re)Starting TERRASIBLE service
       become: yes
-      become_user: "{{ app_user }}"
-      shell: nohup go run "{{ app_path }}"/app.go > "{{ app_path }}/app.log" 2>&1 &
+      service: name=terrasible state=restarted
+      when: cloned_repo.changed

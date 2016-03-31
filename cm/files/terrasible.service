@@ -1,0 +1,10 @@
+[Unit]
+Description=A Simple Web Server on GO Language
+After=network.target auditd.service
+
+[Service]
+ExecStart=/opt/app/app &
+KillMode=process
+Restart=on-failure
+
+[Install]

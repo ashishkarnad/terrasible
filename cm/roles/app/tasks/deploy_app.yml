@@ -6,11 +6,39 @@
   become: true
   group: name={{ app_group }} state=present
 
+- name: Installing init script
+  become: true
+  copy: src={{ init_file_src }} dest={{ init_file_dest }} owner=root group=root mode=0755
+
+- name: Registering our app as a systemd service
+  become: true
+  copy: src={{ systemd_file_src }} dest={{ systemd_file_dst }} owner=root group=root mode=0644
+#
+# This section is outdated, but kept as commented to show direct deployment via file copy
+#
+#
+# - name: Deploying our Application
+#   become: true
+#   become_user: "{{ app_user }}"
+#   copy: src={{ source_code }} dest={{ app_path }}/{{bin_name}} owner={{ app_user }} group={{ app_group }} mode=0644
+#
 - name: Creating directory structure
   become: true
   file: path={{ app_path }} state=directory owner={{ app_user }} group={{ app_group }}
 
-- name: Deploying our Application
+- name: Cloning GIT Repository {{ github_repo }}
   become: true
   become_user: "{{ app_user }}"
-  copy: src={{ source_code }} dest={{ app_path }}/{{bin_name}} owner={{ app_user }} group={{ app_group }} mode=0644
+  git: repo={{ github_repo }}
+      dest={{ app_path }}
+  register: cloned_repo
+
+- name: Checking Travis CI Status
+  shell: travis history --no-interactive --skip-version-check --skip-completion-check | head -n1 | cut -d":" -f1 chdir={{ app_path }}
+  register: travis_status
+
+- name: Building our Application at {{ app_path }}
+  become: true
+  become_user: "{{ app_user }}"
+  shell: go build app.go chdir={{ app_path }}
+  when: cloned_repo.changed and travis_status.stdout.find('passed') != -1

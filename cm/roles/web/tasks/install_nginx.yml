@@ -8,6 +8,11 @@
       become: true
       copy: src={{ source_config_file }} dest={{ dest_config_fie }} owner=root group=root mode=0644
 
+#
+# This check can also be handled with adding a register on "Installing NGINX" and adding a when
+# on "Restarting NGINX Service".
+#
+# Just to show another approach ;
     - name: Check for NGINX Listening port
       shell: if [ $(netstat -an |grep LISTEN | grep ":8484 " | wc -l) -eq 1 ]; then echo "OK"; else echo "FAILED"; fi
       ignore_errors: true

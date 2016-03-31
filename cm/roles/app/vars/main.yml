@@ -1,9 +1,15 @@
 ---
 
 app_path: "/opt/app"
+executable: "{{apt_path}}/app"
 
 source_code: "files/app.go"
-bin_name: "app.go"
 
 app_user: "ubuntu"
 app_group: "ubuntu"
+
+github_repo: "git://github.com/eerkunt/terrasible-example-code.git"
+init_file_src: "files/terrasible"
+init_file_dest: "/etc/init.d/terrasible"
+systemd_file_src: "files/terrasible.service"
+systemd_file_dst: "/lib/systemd/system/terrasible.service"

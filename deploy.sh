@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration Parameters
-DIR_root="/Users/teeerkunt/Documents/SVN_Repository/scripts/jo_U2FpbnNidXJ5"
+DIR_root="/Users/teeerkunt/Documents/SVN_Repository/scripts/terrasible"
 DIR_infra="${DIR_root}/infra"
 DIR_cm="${DIR_root}/cm"
 
@@ -86,7 +86,7 @@ do
 done
 
 echo "---> Sleeping 30 more seconds to be sure that sshd is up!"
-# sleep 30
+sleep 30
 
 #
 # Let the ansible handles the rest
@@ -99,4 +99,4 @@ if [ $? -ne 0 ]; then
 fi
 echo "All done."
 
-echo "Point your browser to ${webPublicIP} to test if it's properly working."
+echo "Point your browser to http://${webPublicIP}:8484 to test if it's properly working."

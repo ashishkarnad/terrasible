@@ -1,1 +1,15 @@
 .idea/*
+
+cm/files/nginx.conf
+
+cm/hosts
+
+infra/terraform.tfstate
+
+infra/terraform.tfstate.backup
+
+*.pdf
+
+cm/main.retry
+
+cm/main.retry

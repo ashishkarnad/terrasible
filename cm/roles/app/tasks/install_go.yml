@@ -1,3 +1,23 @@
 - name: Installing GO Language Support
   apt: name=golang state=present
   become: true
+
+- name: Installing GIT Client
+  apt: name=git state=present
+  become: true
+
+- name: Installing Ruby
+  become: true
+  apt: name=ruby state=present
+
+- name: Installing Ruby Headers
+  become: true
+  apt: name=ruby-dev state=present
+
+- name: Installing Build Essentials
+  become: True
+  apt: name=build-essential state=present
+
+- name: Installing Travis CI Client
+  become: true
+  gem: name=travis state=present include_dependencies=yes user_install=no
